@@ -28,11 +28,11 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="add-report.html">
+        <a class="nav-link collapsed" href="{{ route('reports.create') }}">
             <i class="fas fa-fw fa-plus"></i>
             <span>Add Report</span>
         </a>
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{ route('reports.index') }}">
             <i class="fas fa-fw fa-book"></i>
             <span>Reports List</span>
         </a>

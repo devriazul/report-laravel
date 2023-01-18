@@ -15,7 +15,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.report.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.report.create');
     }
 
     /**
