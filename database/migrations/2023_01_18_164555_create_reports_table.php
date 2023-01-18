@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->string('name',100);
+            $table->string('passport',30);
+            $table->string('status',10)->default('fit');
+            $table->string('path',250)->nullable();
             $table->timestamps();
         });
     }

@@ -3,8 +3,9 @@
     <h4 class="h4 mb-2 text-gray-800">Dashboard / Reports</h4>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="d-flex justify-content-between card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Totals Reports</h6>
+            <a class="btn btn-primary" href="{{ route('reports.create') }}">Add New</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -18,16 +19,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Khokon</td>
-                            <td>BG121234</td>
-                            <td>Fit</td>
-                            <td>
-                                <button class="btn btn-primary">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
-                                <button class="btn btn-success">Download</button>
-                            </td>
-                        </tr>
+                        @forelse ($reports as $report)
+                            <tr>
+                                <td>{{ $report->name ?? '' }}</td>
+                                <td>{{ $report->passport }}</td>
+                                <td>{{ $report->status }}</td>
+                                <td>
+                                    <button class="btn btn-primary">Edit</button>
+                                    <form class="d-inline" method="POST" action="{{ route('reports.destroy',$report->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                    <a href="{{ route('reports.show',$report->id) }}" class="btn btn-success">Download</button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <th class="text-center" colspan="5">No records found</th>
+                            </tr>
+                        @endforelse
+
                     </tbody>
                 </table>
             </div>

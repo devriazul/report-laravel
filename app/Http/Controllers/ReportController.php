@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
@@ -15,7 +16,9 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return view('backend.report.index');
+        return view('backend.report.index', [
+            'reports' => Report::all(),
+        ]);
     }
 
     /**
@@ -36,7 +39,9 @@ class ReportController extends Controller
      */
     public function store(StoreReportRequest $request)
     {
-        //
+        Report::create($request->validated());
+
+        return redirect()->route('reports.index')->with('success', 'Successfully report created!!');
     }
 
     /**
@@ -47,7 +52,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        //
+        return Storage::download($report->path);
     }
 
     /**
@@ -81,6 +86,9 @@ class ReportController extends Controller
      */
     public function destroy(Report $report)
     {
-        //
+        $path = $report->path;
+        Storage::disk('local')->delete($path);
+        $report->delete();
+        return back()->with('success', 'successfully report deleted');
     }
 }

@@ -8,32 +8,52 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Create a Report</h1>
                         </div>
-                        <form class="user">
+                        <form class="user" action="{{ route('reports.store') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('POST')
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                    placeholder="Name">
+                                    placeholder="Name" name="name">
+                                @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user" id="exampleInputEmail"
-                                    placeholder="Passport Number">
+                                    placeholder="Passport Number" name="passport">
+                                @error('passport')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <input type="text" class="form-control form-control-user" id="exampleInputPhone"
                                     placeholder="Status">
-                            </div>
+                            </div> --}}
                             <div class="form-group">
-                                <select class="form-control" name="" id="">
-                                    <option value="">Fit</option>
-                                    <option value="">Unfit</option>
+                                <select class="form-control" name="status" id="">
+                                    <option value="fit">Fit</option>
+                                    <option value="unfit">Unfit</option>
                                 </select>
+
+                                @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlFile1">Report PDF file input</label>
-                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                <input type="file" name="report" class="form-control-file" id="exampleFormControlFile1"
+                                    accept="application/pdf">
+
+                                    @error('report')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+
                             </div>
-                            <a href="index.html" class="btn btn-primary btn-user btn-block">
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Submit Report
-                            </a>
+                            </button>
                         </form>
                     </div>
                 </div>
