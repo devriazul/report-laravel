@@ -29,7 +29,8 @@ class StoreReportRequest extends FormRequest
             'name'     => 'required|string|max:100',
             'passport' => 'required|string|max:30',
             'status'   => 'required|min:3|max:5',
-            'path'   => 'required',
+            'report'   => 'required|file',
+            'path'     => 'required',
         ];
     }
 
