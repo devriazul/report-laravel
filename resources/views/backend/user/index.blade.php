@@ -14,24 +14,25 @@
                         <tr>
                             <th>Name</th>
                             <th>Passport Number</th>
-                            <th>Status</th>
-                            <th>Manage</th>
+                            <th>Permission</th>
+                            <th class="text-center">Manage</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($reports as $report)
+                        @forelse ($users as $user)
                             <tr>
-                                <td>{{ $report->name ?? '' }}</td>
-                                <td>{{ $report->passport }}</td>
-                                <td>{{ $report->status }}</td>
+                                <td>{{ $user->name ?? '' }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->permission }}</td>
                                 <td>
-                                    <a href="{{ route('reports.edit',$report->id) }}" class="btn btn-primary">Edit</a>
-                                    <form class="d-inline" method="POST" action="{{ route('reports.destroy',$report->id) }}">
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                                    <form class="d-inline" method="POST"
+                                        action="{{ route('users.destroy', $user->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
-                                    <a href="{{ route('reports.show',$report->id) }}" class="btn btn-success">Download</button>
+                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-success">View</button>
                                 </td>
                             </tr>
                         @empty

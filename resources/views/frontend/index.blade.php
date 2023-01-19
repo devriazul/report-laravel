@@ -41,13 +41,13 @@
 
                     <!-- Page Heading -->
                     <div class="card shadow p-3 mt-5">
-                        <form class="d-none d-sm-inline-block form-inline mr-auto navbar-search">
+                        <form  method="GET" action="{{ url()->current() }}" class="d-none d-sm-inline-block form-inline mr-auto navbar-search">
                             <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small"
+                                <input name="search" value="{{ @request('search') }}" type="text" class="form-control bg-light border-0 small"
                                     placeholder="Search by Passport Number" aria-label="Search"
                                     aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
+                                    <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
                                 </div>
@@ -68,18 +68,24 @@
                                             <th>Name</th>
                                             <th>Passport Number</th>
                                             <th>Status</th>
+                                            <th>Date</th>
                                             <th>Manage</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Khokon</td>
-                                            <td>BG121234</td>
-                                            <td>Fit</td>
-                                            <td>
-                                                <button class="btn btn-success">Download</button>
-                                            </td>
-                                        </tr>
+                                        @forelse ($reports as $report)
+                                            <tr>
+                                                <td>{{ $report->name }}</td>
+                                                <td>{{ $report->passport }}</td>
+                                                <td>{{ $report->status }}</td>
+                                                <td>{{ $report->created_at->format('d-F-Y h:i A') }}</td>
+                                                <td>
+                                                    <a href="{{ route('download', $report->id) }}"
+                                                        class="btn btn-success">Download</a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -144,11 +150,11 @@
     <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <!-- <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
+    <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    {{-- <script src="{{ asset('assets/js/demo/datatables-demo.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/demo/datatables-demo.js') }}"></script>
 
 </body>
 

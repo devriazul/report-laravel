@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
+use App\Models\Report;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +21,23 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/',function(){
-    return view('frontend.index');
+Route::get('/', function (Request $request) {
+    $data   = [];
+    $search = $request->search ?? null;
+
+    if ($search) {
+        $data = Report::where('name', 'like', "%$search%")->orWhere('passport', 'like', "%$search%")->get();
+    }
+
+    return view('frontend.index', [
+        'reports' => $data
+    ]);
 })->name('home');
+
+Route::get('report/{id}', function ($id) {
+    $report = Report::findOrFail($id);
+    return Storage::download($report->path);
+})->name('download');
 
 
 
@@ -30,13 +48,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         return view('backend.dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
 
+    Route::resource('reports', ReportController::class);
 
-
-
-    Route::resource('reports',ReportController::class);
-
-
-
+    Route::resource('users', UserController::class);
 
     /**
      * Laravel Breeze

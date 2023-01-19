@@ -48,12 +48,12 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="add-user.html">
+        <a class="nav-link" href="{{ route('users.create') }}">
             <i class="fas fa-fw fa-user-plus"></i>
             <span>Add User</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="users.html">
+        <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Manage Users</span></a>
     </li>

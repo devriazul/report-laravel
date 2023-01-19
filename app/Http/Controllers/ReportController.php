@@ -26,6 +26,7 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         return view('backend.report.create');
@@ -63,7 +64,9 @@ class ReportController extends Controller
      */
     public function edit(Report $report)
     {
-        //
+        return view('backend.report.edit', [
+            'report' => $report
+        ]);
     }
 
     /**
@@ -75,7 +78,8 @@ class ReportController extends Controller
      */
     public function update(UpdateReportRequest $request, Report $report)
     {
-        //
+        $report->update($request->validated());
+        return redirect()->route('reports.index')->with('success', 'Successfully report updated!!');
     }
 
     /**
@@ -87,7 +91,10 @@ class ReportController extends Controller
     public function destroy(Report $report)
     {
         $path = $report->path;
-        Storage::disk('local')->delete($path);
+
+        if ($path) {
+            Storage::disk('local')->delete($path);
+        }
         $report->delete();
         return back()->with('success', 'successfully report deleted');
     }

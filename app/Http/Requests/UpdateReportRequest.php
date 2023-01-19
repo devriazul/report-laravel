@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReportRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateReportRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +22,40 @@ class UpdateReportRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+
     public function rules()
     {
         return [
-            //
+            'name'     => 'required|string|max:100',
+            'passport' => 'required|string|max:30',
+            'status'   => 'required|min:3|max:5',
+            'report'   => 'nullable|file',
+            'path'     => 'sometimes|string',
         ];
+    }
+
+
+
+    protected function prepareForValidation()
+    {
+        $path = $this->path;
+
+        if ($this->hasFile('report') && $this->passport) {
+
+            $extension = $this->file('report')->getClientOriginalExtension();
+            $timestamp = Carbon::now()->format('d_m_Y__h_i_s');
+            $file_Name = "report_" . $this->passport . "_" . $timestamp . "." . $extension;
+
+            $this->file('report')->storeAs(
+                'reports',
+                $file_Name,
+            );
+
+            $path = "reports/" . $file_Name;
+        }
+
+        $this->merge([
+            'path' => $path
+        ]);
     }
 }

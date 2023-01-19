@@ -40,12 +40,11 @@ class StoreReportRequest extends FormRequest
     {
         $path = null;
 
-        if ($this->hasFile('report')) {
+        if ($this->hasFile('report') && $this->passport) {
 
-            $time = Carbon::now()->timestamp;
             $extension = $this->file('report')->getClientOriginalExtension();
-
-            $file_Name = Str::random(60) . "_$time.$extension";
+            $timestamp = Carbon::now()->format('d_m_Y__h_i_s');
+            $file_Name = "report_" . $this->passport . "_" . $timestamp . "." . $extension;
 
             $this->file('report')->storeAs(
                 'reports',
