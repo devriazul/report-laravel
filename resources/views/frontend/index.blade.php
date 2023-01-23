@@ -29,18 +29,17 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
+        <div id="content-wrapper" class="d-flex flex-column pt-3">
+            <a class="btn btn-danger m-auto float-right" href="{{ route('login') }}">Admin Login</a>
             <!-- Main Content -->
             <div id="content">
 
-
-
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
+                <div class="container-fluid ">
                     <!-- Page Heading -->
-                    <div class="card shadow p-3 mt-5">
+                    <div class="card shadow p-3 mt-3">
+
+
                         <form  method="GET" action="{{ url()->current() }}" class="d-none d-sm-inline-block form-inline mr-auto navbar-search">
                             <div class="input-group">
                                 <input name="search" value="{{ @request('search') }}" type="text" class="form-control bg-light border-0 small"
@@ -54,6 +53,7 @@
                             </div>
                         </form>
                     </div>
+
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -153,7 +153,7 @@
     <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Page level custom scripts -->
+    <!-- Page level custom scripts  -->
     <script src="{{ asset('assets/js/demo/datatables-demo.js') }}"></script>
 
 </body>

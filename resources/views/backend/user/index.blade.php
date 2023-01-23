@@ -13,7 +13,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Passport Number</th>
+                            <th>Email</th>
                             <th>Permission</th>
                             <th class="text-center">Manage</th>
                         </tr>
@@ -23,7 +23,7 @@
                             <tr>
                                 <td>{{ $user->name ?? '' }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->permission }}</td>
+                                <td>{{ $user->role }}</td>
                                 <td>
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
                                     <form class="d-inline" method="POST"
